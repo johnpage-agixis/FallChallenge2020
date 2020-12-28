@@ -574,7 +574,8 @@ public class Game {
                 .flatMap(p -> p.getSpells().stream())
         )
             .flatMap(Function.identity())
-            .filter(spell -> spell.getId() == id)
+            .filter(spell -> ((Spell)spell).getId() == id)
+            .map(spell -> (Spell)spell)
             .findFirst();
     }
 
