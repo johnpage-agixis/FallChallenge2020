@@ -41,8 +41,8 @@ public class Referee extends AbstractReferee {
             gameManager.setFrameDuration(500);
             gameManager.setMaxTurns(MAX_TURNS);
             gameManager.setTurnMaxTime(Integer.MAX_VALUE / MAX_TURNS);
-            gameManager.setFirstTurnMaxTime(Integer.MAX_VALUE / MAX_TURNS);​
-
+            gameManager.setFirstTurnMaxTime(Integer.MAX_VALUE / MAX_TURNS);
+            
             game.init(seed);
             sendGlobalInfo();
 
@@ -64,17 +64,20 @@ public class Referee extends AbstractReferee {
                 player.sendInputLine(line);
             }
         }
+        System.err.println("Sent inputs");
     }
 
     @Override
     public void gameTurn(int turn) {
         game.resetGameTurnData();
+        System.err.println("Turn " + turn);
 
         // Give input to players
         for (Player player : gameManager.getActivePlayers()) {
             for (String line : game.getCurrentFrameInfoFor(player)) {
                 player.sendInputLine(line);
             }
+            System.err.println("Sent inputs to player " + player.getNicknameToken());
             player.execute();
         }
         // Get output from players
