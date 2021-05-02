@@ -18,7 +18,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class Referee extends AbstractReferee {
 
-    private static final int MAX_TURNS = 100;
+    public static final int MAX_TURNS = 100;
     @Inject private MultiplayerGameManager<Player> gameManager;
     @Inject private CommandManager commandManager;
     @Inject private Game game;
@@ -40,9 +40,8 @@ public class Referee extends AbstractReferee {
         try {
             gameManager.setFrameDuration(500);
             gameManager.setMaxTurns(MAX_TURNS);
-            gameManager.setTurnMaxTime(Integer.MAX_VALUE / MAX_TURNS);
-            gameManager.setFirstTurnMaxTime(Integer.MAX_VALUE / MAX_TURNS);
-            
+            gameManager.setTurnMaxTime(50);
+
             game.init(seed);
             sendGlobalInfo();
 

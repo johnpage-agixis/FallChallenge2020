@@ -47,15 +47,18 @@ public class CommandLineInterface {
             gameRunner.setLeagueLevel(3);
 
             //Add players
+            Method addAgent = GameRunner.class.getDeclaredMethod("addAgent", Agent.class, String.class, String.class);
+            addAgent.setAccessible(true);
+
             String cmd1 = cmd.getOptionValue("p1");
             String name1 = cmd.getOptionValue("n1", "Player1");
             String avatar1 = "https://robohash.org/" + name1;
-            gameRunner.addAgent(cmd1, name1, avatar1);
+            addAgent.invoke(gameRunner, new CommandLinePlayerAgentModified(cmd1), name1, avatar1);
 
             String cmd2 = cmd.getOptionValue("p2");
             String name2 = cmd.getOptionValue("n2", "Player2");
             String avatar2 = "https://robohash.org/" + name2;
-            gameRunner.addAgent(cmd2, name2, avatar2);
+            addAgent.invoke(gameRunner, new CommandLinePlayerAgentModified(cmd2), name2, avatar2);
 
             if (cmd.hasOption("d")) {
                 String[] parse = cmd.getOptionValue("d").split("=", 0);
