@@ -49,7 +49,7 @@ public class CommandLineInterface {
             gameRunner.setLeagueLevel(3);
 
             //Add players
-            Method addAgent = GameRunner.class.getDeclaredMethod("addAgent", Agent.class, String.class, String.class);
+            Method addAgent = MultiplayerGameRunner.class.getDeclaredMethod("addAgent", Agent.class, String.class, String.class);
             addAgent.setAccessible(true);
 
             String cmd1 = cmd.getOptionValue("p1");
@@ -59,7 +59,7 @@ public class CommandLineInterface {
 
             String cmd2 = cmd.getOptionValue("p2");
             String name2 = cmd.getOptionValue("n2", "Player2");
-            String avatar2 = cmd.getOptionValue("a1", null);
+            String avatar2 = cmd.getOptionValue("a2", null);
             addAgent.invoke(gameRunner, new CommandLinePlayerAgentModified(cmd2), name2, avatar2);
 
             if (cmd.hasOption("d")) {
@@ -108,7 +108,7 @@ public class CommandLineInterface {
 
             if (players != null) {
                 for (Agent player : players) {
-                    Field getProcess = CommandLinePlayerAgent.class.getDeclaredField("process");
+                    Field getProcess = CommandLinePlayerAgentModified.class.getDeclaredField("process");
                     getProcess.setAccessible(true);
                     Process process = (Process) getProcess.get(player);
 
